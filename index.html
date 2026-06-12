@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPOT — Sports Briefing · 8–14 Jun 2026</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #1a1a1a; --surface: #262626; --surface2: #2e2e2e; --text: #ececec;
+    --muted: #9b9b9b; --border: #383838; --gold: #d4952a;
+    --rugby: #34a85a; --mma: #e05555; --boxing: #5b8def; --f1: #ef4444;
+    --radius: 10px; --gap: 16px;
+  }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; line-height: 1.5; min-height: 100vh; }
+  .header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; position: sticky; top: 0; z-index: 100; }
+  .header-left { display: flex; align-items: baseline; gap: 12px; }
+  .logo { font-size: 22px; font-weight: 800; letter-spacing: 0.08em; color: var(--gold); text-transform: uppercase; }
+  .logo-sub { font-size: 11px; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; }
+  .week-badge { background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; padding: 3px 12px; font-size: 12px; color: var(--muted); }
+  .share-btn { background: var(--gold); color: #111; border: none; border-radius: 8px; padding: 8px 18px; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: opacity 0.15s; }
+  .share-btn:hover { opacity: 0.85; }
+  .spotlight { background: linear-gradient(140deg,#111827,#1a2233,#0d1f35); border-bottom: 1px solid #1e3a5f; padding: 28px 24px; }
+  .spotlight-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+  .spotlight-icon { width: 28px; height: 28px; background: var(--gold); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .spotlight-title { font-size: 13px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em; }
+  .spotlight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+  .spotlight-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius); padding: 16px; position: relative; overflow: hidden; }
+  .spotlight-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .spotlight-card.sport-mma::before { background: var(--mma); }
+  .spotlight-card.sport-f1::before { background: var(--f1); }
+  .spotlight-card.sport-rugby::before { background: var(--rugby); }
+  .sl-rank { font-size: 11px; font-weight: 800; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+  .sl-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; line-height: 1.3; }
+  .sl-date { font-size: 11px; color: var(--muted); margin-bottom: 10px; }
+  .sl-why { font-size: 12.5px; color: #b0b8c8; line-height: 1.55; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 10px; margin-top: 4px; }
+  .sl-why strong { color: var(--text); }
+  .filter-bar { padding: 14px 24px; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .filter-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-right: 4px; }
+  .chip { padding: 5px 14px; border-radius: 20px; border: 1px solid transparent; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s; background: var(--surface2); color: var(--muted); }
+  .chip[aria-pressed="true"].chip-rugby  { background: rgba(52,168,90,0.15); border-color: var(--rugby); color: var(--rugby); }
+  .chip[aria-pressed="true"].chip-mma    { background: rgba(224,85,85,0.15); border-color: var(--mma); color: var(--mma); }
+  .chip[aria-pressed="true"].chip-boxing { background: rgba(91,141,239,0.15); border-color: var(--boxing); color: var(--boxing); }
+  .chip[aria-pressed="true"].chip-f1     { background: rgba(239,68,68,0.15); border-color: var(--f1); color: var(--f1); }
+  .chip[aria-pressed="false"] { opacity: 0.45; }
+  .content { padding: 20px 24px; max-width: 1100px; margin: 0 auto; }
+  .sport-section { margin-bottom: 32px; }
+  .sport-section[hidden] { display: none; }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .section-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .dot-rugby { background: var(--rugby); } .dot-mma { background: var(--mma); } .dot-boxing { background: var(--boxing); } .dot-f1 { background: var(--f1); }
+  .section-title { font-size: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text); }
+  .section-count { margin-left: auto; font-size: 11px; color: var(--muted); }
+  .event-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; margin-bottom: 10px; display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: start; }
+  .event-card:last-child { margin-bottom: 0; }
+  .event-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 6px; }
+  .event-date { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .event-time { font-size: 11px; background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 7px; color: var(--text); font-weight: 600; }
+  .dot-sep { width: 3px; height: 3px; border-radius: 50%; background: var(--border); }
+  .event-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; line-height: 1.3; }
+  .event-subtitle { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 6px; }
+  .pill { font-size: 11px; font-weight: 600; padding: 2px 9px; border-radius: 12px; border: 1px solid transparent; white-space: nowrap; }
+  .pill-sky   { background: rgba(0,130,202,0.15); border-color: rgba(0,130,202,0.4); color: #48b4f0; }
+  .pill-tnt   { background: rgba(168,85,247,0.15); border-color: rgba(168,85,247,0.4); color: #c084fc; }
+  .pill-dazn  { background: rgba(229,0,70,0.15); border-color: rgba(229,0,70,0.4); color: #f87171; }
+  .pill-free  { background: rgba(52,168,90,0.15); border-color: rgba(52,168,90,0.4); color: #4ade80; }
+  .pill-ppv   { background: rgba(245,158,11,0.15); border-color: rgba(245,158,11,0.4); color: #fbbf24; }
+  .event-right { text-align: right; min-width: 140px; }
+  .odds-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+  .odds-grid { display: flex; flex-direction: column; gap: 4px; }
+  .odds-row { display: flex; justify-content: flex-end; align-items: center; gap: 8px; }
+  .odds-name { font-size: 11px; color: var(--muted); }
+  .odds-val { font-size: 13px; font-weight: 700; color: var(--text); background: var(--surface2); border: 1px solid var(--border); border-radius: 5px; padding: 2px 8px; min-width: 42px; text-align: center; }
+  .odds-val.fav { border-color: var(--gold); color: var(--gold); }
+  .tag { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 2px 7px; border-radius: 4px; border: 1px solid; }
+  .tag-title { border-color: var(--gold); color: var(--gold); background: rgba(212,149,42,0.1); }
+  .tag-semi  { border-color: var(--rugby); color: var(--rugby); background: rgba(52,168,90,0.1); }
+  .tag-exh   { border-color: var(--muted); color: var(--muted); background: rgba(155,155,155,0.1); }
+  .f1-table-wrap { overflow-x: auto; margin-top: 8px; }
+  .f1-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .f1-table th { text-align: left; padding: 8px 12px; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 600; border-bottom: 1px solid var(--border); }
+  .f1-table td { padding: 9px 12px; border-bottom: 1px solid rgba(56,56,56,0.5); color: var(--text); }
+  .f1-table tr:last-child td { border-bottom: none; }
+  .f1-table tr.row-key td { background: rgba(239,68,68,0.07); }
+  .f1-table tr.row-key td:first-child { border-left: 2px solid var(--f1); }
+  .f1-session { font-weight: 600; }
+  .f1-session.key { color: var(--f1); }
+  .f1-bst { font-family: 'SF Mono','Fira Code',monospace; font-size: 12px; }
+  .f1-channel { display: flex; gap: 4px; flex-wrap: wrap; }
+  .odds-table-wrap { margin-top: 14px; }
+  .odds-table-title { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .odds-strip { display: flex; flex-wrap: wrap; gap: 8px; }
+  .odds-chip { display: flex; flex-direction: column; align-items: center; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; min-width: 88px; }
+  .odds-chip.fav-chip { border-color: var(--gold); }
+  .odds-chip .driver { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .odds-chip .team   { font-size: 10px; color: var(--muted); margin-bottom: 6px; }
+  .odds-chip .dval   { font-size: 16px; font-weight: 800; color: var(--text); }
+  .odds-chip.fav-chip .dval { color: var(--gold); }
+  .toast { position: fixed; bottom: 24px; right: 24px; background: #1e3a1e; border: 1px solid var(--rugby); color: var(--text); padding: 12px 20px; border-radius: var(--radius); font-size: 13px; font-weight: 500; box-shadow: 0 8px 24px rgba(0,0,0,0.5); opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; z-index: 999; }
+  .toast.show { opacity: 1; transform: translateY(0); }
+  .footer { text-align: center; padding: 24px; color: var(--muted); font-size: 11px; border-top: 1px solid var(--border); margin-top: 20px; }
+  @media (max-width: 600px) {
+    .header, .content, .spotlight, .filter-bar { padding-left: 16px; padding-right: 16px; }
+    .event-card { grid-template-columns: 1fr; }
+    .event-right { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-left">
+    <span class="logo">SPOT</span>
+    <span class="logo-sub">Sports Briefing</span>
+    <span class="week-badge">8–14 Jun 2026</span>
+  </div>
+  <button class="share-btn" onclick="handleShare()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+    Share Digest
+  </button>
+</header>
+
+<section class="spotlight">
+  <div class="spotlight-header">
+    <div class="spotlight-icon">⚡</div>
+    <span class="spotlight-title">Spotlight — Top 3 This Week</span>
+  </div>
+  <div class="spotlight-grid">
+
+    <div class="spotlight-card sport-mma">
+      <div class="sl-rank">#1 · MMA</div>
+      <div class="sl-title">UFC Freedom 250 — Topuria vs Gaethje</div>
+      <div class="sl-date">Sun 14 Jun (Mon 15 BST) · White House, Washington D.C. · TNT Sports 1</div>
+      <div class="sl-why">The most historically significant MMA event ever staged — held on the White House lawn to mark America's 250th anniversary. <strong>Topuria defends his lightweight title against interim champion Gaethje</strong> in a genuine unification, while Alex Pereira's heavyweight debut puts a second title on the same card.</div>
+    </div>
+
+    <div class="spotlight-card sport-f1">
+      <div class="sl-rank">#2 · Formula 1</div>
+      <div class="sl-title">Barcelona-Catalunya Grand Prix — Round 8</div>
+      <div class="sl-date">Race: Sun 14 Jun 14:00 BST · Sky Sports F1</div>
+      <div class="sl-why">A high-speed circuit that ruthlessly exposes chassis weaknesses. <strong>Verstappen enters as race favourite</strong> but the 2026 championship battle remains open — a Barcelona win could prove decisive heading into the summer break.</div>
+    </div>
+
+    <div class="spotlight-card sport-rugby">
+      <div class="sl-rank">#3 · Rugby Union</div>
+      <div class="sl-title">Gallagher Premiership Semi-Finals</div>
+      <div class="sl-date">Fri 12 Jun + Sat 13 Jun · TNT Sports</div>
+      <div class="sl-why">Both semi-finals land in the same week: <strong>league leaders Northampton host Exeter (Fri)</strong>, then defending champions Bath face Leicester at The Rec (Sat). Two winners advance to Twickenham on 20 June.</div>
+    </div>
+
+  </div>
+</section>
+
+<nav class="filter-bar">
+  <span class="filter-label">Filter</span>
+  <button class="chip chip-rugby"  aria-pressed="true"  onclick="toggleFilter(this,'s-rugby')">🏉 Rugby</button>
+  <button class="chip chip-mma"    aria-pressed="true"  onclick="toggleFilter(this,'s-mma')">🥋 MMA</button>
+  <button class="chip chip-boxing" aria-pressed="true"  onclick="toggleFilter(this,'s-boxing')">🥊 Boxing</button>
+  <button class="chip chip-f1"     aria-pressed="true"  onclick="toggleFilter(this,'s-f1')">🏎 F1</button>
+</nav>
+
+<main class="content">
+
+  <!-- RUGBY -->
+  <section id="s-rugby" class="sport-section">
+    <div class="section-header">
+      <div class="section-dot dot-rugby"></div>
+      <span class="section-title">Rugby Union</span>
+      <span class="section-count">4 events this week</span>
+    </div>
+
+    <div class="event-card">
+      <div class="event-left">
+        <div class="event-meta">
+          <span class="event-date">Fri 12 Jun</span>
+          <span class="event-time">19:45 BST</span>
+          <span class="dot-sep"></span>
+          <span class="tag tag-semi">SF 1 of 2</span>
+        </div>
+        <div class="event-title">Northampton Saints vs Exeter Chiefs</div>
+        <div class="event-subtitle">Gallagher Premiership Semi-Final · Franklin's Gardens, Northampton · Winner to Twickenham 20 Jun</div>
+        <div class="pills">
+          <span class="pill pill-tnt">TNT Sports</span>
+          <span class="pill pill-tnt">HBO Max</span>
+        </div>
+      </div>
+      <div class="event-right">
+        <div class="odds-label">Handicap (spread)</div>
+        <div class="odds-grid">
+          <div class="odds-row"><span class="odds-name">Northampton −8.5</span><span class="odds-val fav">1.91</span></div>
+          <div class="odds-row"><span class="odds-name">Exeter +8.5</span><span class="odds-val">1.91</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-left">
+        <div class="event-meta">
+          <span class="event-date">Sat 13 Jun</span>
+          <span class="event-time">15:00 BST</span>
+          <span class="dot-sep"></span>
+          <span class="tag tag-semi">SF 2 of 2</span>
+        </div>
+        <div class="event-title">Bath vs Leicester Tigers</div>
+        <div class="event-subtitle">Gallagher Premiership Semi-Final · The Rec, Bath · Defending champions host dangerous Tigers</div>
+        <div class="pills">
+          <span class="pill pill-tnt">TNT Sports</span>
+          <span class="pill pill-tnt">HBO Max</span>
+        </div>
+      </div>
+      <div class="event-right">
+        <div class="odds-label">Handicap (spread)</div>
+        <div class="odds-grid">
+          <div class="odds-row"><span class="odds-name">Bath −5.5</span><span class="odds-val fav">1.91</span></div>
+          <div class="odds-row"><span class="odds-name">Leicester +5.5</span><span class="odds-val">1.91</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-left">
+        <div class="event-meta">
+          <span class="event-date">Sat 13 Jun</span>
+          <span class="event-time">08:05 BST</span>
+          <span class="dot-sep"></span>
+          <span class="tag tag-semi">Semi-Final</span>
+        </div>
+        <div class="event-title">Chiefs vs Crusaders</div>
+        <div class="event-subtitle">Super Rugby Pacific Semi-Final · FMG Stadium Waikato, Hamilton NZ · Fri 19:05 NZST</div>
+        <div class="pills">
+          <span class="pill pill-sky">Sky Sports</span>
+        </div>
+      </div>
+      <div class="event-right">
+        <div class="odds-label">Handicap (spread)</div>
+        <div class="odds-grid">
+          <div class="odds-row"><span class="odds-name">Chiefs −4.5</span><span class="odds-val fav">1.91</span></div>
+          <div class="odds-row"><span class="odds-name">Crusaders +4.5</span><span class="odds-val">1.91</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-left">
+        <div class="event-meta">
+          <span class="event-date">Sun 14 Jun</span>
+          <span class="event-time">08:05 BST</span>
+          <span class="dot-sep"></span>
+          <span class="tag tag-semi">Semi-Final</span>
+        </div>
+        <div class="event-title">Hurricanes vs Blues</div>
+        <div class="event-subtitle">Super Rugby Pacific Semi-Final · Hnry Stadium, Wellington NZ · Sat 19:05 NZST</div>
+        <div class="pills">
+          <span class="pill pill-sky">Sky Sports</span>
+        </div>
+      </div>
+      <div class="event-right">
+        <div class="odds-label">Handicap (spread)</div>
+        <div class="odds-grid">
+          <div class="odds-row"><span class="odds-name">Hurricanes −2.5</span><span class="odds-val fav">1.91</span></div>
+          <div class="odds-row"><span class="odds-name">Blues +2.5</span><span class="odds-val">1.91</span></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- MMA -->
+  <section id="s-mma" class="sport-section">
+    <div class="section-header">
+      <div class="section-dot dot-mma"></div>
+      <span class="section-title">MMA</span>
+      <span class="section-count">1 event this week</span>
+    </div>
+
+    <div class="event-card">
+      <div class="event-left">
+        <div class="event-meta">
+          <span class="event-date">Mon 15 Jun (UK)</span>
+          <span class="event-time">~01:00 BST prelims</span>
+          <span class="dot-sep"></span>
+          <span class="tag tag-title">LW Title Unification</span>
+        </div>
+        <div class="event-title">UFC Freedom 250 — Topuria (c) vs Gaethje</div>
+        <div class="event-subtitle" style="line-height:1.7;">
+          White House Lawn, Washington D.C. · Main card ~03:00 BST<br>
+          <strong style="color:var(--text)">Co-Main:</strong> Pereira vs Gane · Interim Heavyweight Title<br>
+          <strong style="color:var(--text)">Card:</strong> O'Malley vs Zahabi · Ruffy vs Chandler · Nickal vs Daukaus · Lopes vs Garcia · Hokit vs D. Lewis
+        </div>
+        <div class="pills">
+          <span class="pill pill-tnt">TNT Sports 1</span>
+          <span class="pill pill-tnt">discovery+</span>
+        </div>
+      </div>
+      <div class="event-right">
+        <div class="odds-label">Main Event Winner</div>
+        <div class="odds-grid">
+          <div class="odds-row"><span class="odds-name">Topuria (c)</span><span class="odds-val fav">1.13</span></div>
+          <div class="odds-row"><span class="odds-name">Gaethje</span><span class="odds-val">5.75</span></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- BOXING -->
+  <section id="s-boxing" class="sport-section">
+    <div class="section-header">
+      <div class="section-dot dot-boxing"></div>
+      <span class="section-title">Boxing</span>
+      <span class="section-count">1 event this week</span>
+    </div>
+
+    <div class="event-card">
+      <div class="event-left">
+        <div class="event-meta">
+          <span class="event-date">Sat 13 Jun</span>
+          <span class="event-time">~22:00 BST ringwalk</span>
+          <span class="dot-sep"></span>
+          <span class="tag tag-exh">Exhibition · 6×2 min</span>
+        </div>
+        <div class="event-title">Tommy Fury vs Eddie "The Beast" Hall</div>
+        <div class="event-subtitle">Beauty vs The Beast · AO Arena, Manchester · Non-professional exhibition</div>
+        <div class="pills">
+          <span class="pill pill-dazn">DAZN</span>
+          <span class="pill pill-ppv">PPV</span>
+        </div>
+      </div>
+      <div class="event-right">
+        <div class="odds-label">Winner</div>
+        <div class="odds-grid">
+          <div class="odds-row"><span class="odds-name">T. Fury</span><span class="odds-val fav">1.29</span></div>
+          <div class="odds-row"><span class="odds-name">E. Hall</span><span class="odds-val">3.50</span></div>
+          <div class="odds-row"><span class="odds-name">Draw</span><span class="odds-val">17.00</span></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- F1 -->
+  <section id="s-f1" class="sport-section">
+    <div class="section-header">
+      <div class="section-dot dot-f1"></div>
+      <span class="section-title">Formula 1</span>
+      <span class="section-count">5 sessions · Round 8</span>
+    </div>
+
+    <div class="event-card" style="display:block;">
+      <div class="event-meta" style="margin-bottom:8px;">
+        <span class="event-title">Barcelona-Catalunya Grand Prix</span>
+        <span class="tag tag-title" style="margin-left:8px;">Round 8 of 24</span>
+      </div>
+      <div class="event-subtitle" style="margin-bottom:12px;">Circuit de Barcelona-Catalunya · Spain · 12–14 June 2026</div>
+      <div class="pills" style="margin-bottom:16px;">
+        <span class="pill pill-sky">Sky Sports F1</span>
+        <span class="pill pill-free">Ch4 Highlights (Race)</span>
+      </div>
+
+      <div class="f1-table-wrap">
+        <table class="f1-table">
+          <thead>
+            <tr><th>Session</th><th>Day</th><th>BST</th><th>Channel</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="f1-session">Free Practice 1</td>
+              <td>Fri 12 Jun</td>
+              <td class="f1-bst">12:30</td>
+              <td><div class="f1-channel"><span class="pill pill-sky">Sky Sports F1</span></div></td>
+            </tr>
+            <tr>
+              <td class="f1-session">Free Practice 2</td>
+              <td>Fri 12 Jun</td>
+              <td class="f1-bst">16:00</td>
+              <td><div class="f1-channel"><span class="pill pill-sky">Sky Sports F1</span></div></td>
+            </tr>
+            <tr>
+              <td class="f1-session">Free Practice 3</td>
+              <td>Sat 13 Jun</td>
+              <td class="f1-bst">11:30</td>
+              <td><div class="f1-channel"><span class="pill pill-sky">Sky Sports F1</span></div></td>
+            </tr>
+            <tr class="row-key">
+              <td class="f1-session key">⏱ Qualifying</td>
+              <td>Sat 13 Jun</td>
+              <td class="f1-bst">15:00</td>
+              <td><div class="f1-channel"><span class="pill pill-sky">Sky Sports F1</span></div></td>
+            </tr>
+            <tr class="row-key">
+              <td class="f1-session key">🏁 Grand Prix</td>
+              <td>Sun 14 Jun</td>
+              <td class="f1-bst">14:00</td>
+              <td><div class="f1-channel"><span class="pill pill-sky">Sky Sports F1</span><span class="pill pill-free">Ch4 Highlights</span></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="odds-table-wrap">
+        <div class="odds-table-title">Race Winner Odds (approx. pre-weekend)</div>
+        <div class="odds-strip">
+          <div class="odds-chip fav-chip"><div class="driver">Verstappen</div><div class="team">Red Bull</div><div class="dval">1.80</div></div>
+          <div class="odds-chip"><div class="driver">Russell</div><div class="team">Mercedes</div><div class="dval">4.00</div></div>
+          <div class="odds-chip"><div class="driver">Norris</div><div class="team">McLaren</div><div class="dval">5.00</div></div>
+          <div class="odds-chip"><div class="driver">Piastri</div><div class="team">McLaren</div><div class="dval">5.50</div></div>
+          <div class="odds-chip"><div class="driver">Leclerc</div><div class="team">Ferrari</div><div class="dval">9.00</div></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="footer">
+  SPOT Sports Briefing · Generated Sun 8 Jun 2026 · Odds approximate &amp; subject to change · Gamble responsibly 18+
+</footer>
+
+<div id="toast" class="toast">✓ Share email opened</div>
+
+<script>
+  function toggleFilter(btn, sectionId) {
+    const pressed = btn.getAttribute('aria-pressed') === 'true';
+    btn.setAttribute('aria-pressed', String(!pressed));
+    const sec = document.getElementById(sectionId);
+    if (sec) sec.hidden = pressed;
+  }
+
+  function handleShare() {
+    const to = 'miran.serdarevic@gmail.com';
+    const subject = encodeURIComponent('SPOT Sports Briefing — 8-14 Jun 2026');
+    const body = encodeURIComponent(
+      'SPOT — Weekly Sports Briefing\n8-14 Jun 2026\n\n' +
+      '━━ SPOTLIGHT ━━\n\n' +
+      '#1 MMA — UFC Freedom 250: Topuria vs Gaethje\n' +
+      'Mon 15 Jun ~01:00 BST · White House Lawn · TNT Sports 1 (no PPV)\n' +
+      'Topuria (c) 1.13 | Gaethje 5.75\n' +
+      'Co-Main: Alex Pereira vs Ciryl Gane (Interim HW Title)\n\n' +
+      '#2 F1 — Barcelona-Catalunya Grand Prix (Round 8)\n' +
+      'Race: Sun 14 Jun 14:00 BST · Sky Sports F1\n' +
+      'Odds: Verstappen 1.80 | Russell 4.00 | Norris 5.00 | Piastri 5.50\n\n' +
+      '#3 Rugby — Gallagher Premiership Semi-Finals\n' +
+      'SF1: Fri 12 Jun 19:45 BST · Northampton vs Exeter · TNT Sports\n' +
+      'SF2: Sat 13 Jun 15:00 BST · Bath vs Leicester · TNT Sports\n\n' +
+      '━━ ALL EVENTS ━━\n\n' +
+      'RUGBY\n' +
+      '  Northampton vs Exeter  Fri 12 Jun 19:45 BST  TNT Sports\n' +
+      '  Bath vs Leicester      Sat 13 Jun 15:00 BST  TNT Sports\n' +
+      '  Chiefs vs Crusaders    Sat 13 Jun 08:05 BST  Sky Sports\n' +
+      '  Hurricanes vs Blues    Sun 14 Jun 08:05 BST  Sky Sports\n\n' +
+      'MMA\n' +
+      '  UFC Freedom 250        Mon 15 Jun ~01:00 BST  TNT Sports 1\n\n' +
+      'BOXING\n' +
+      '  Fury vs Hall (Exh)     Sat 13 Jun ~22:00 BST  DAZN PPV\n\n' +
+      'F1 — BARCELONA\n' +
+      '  FP1        Fri 12 Jun 12:30 BST\n' +
+      '  FP2        Fri 12 Jun 16:00 BST\n' +
+      '  FP3        Sat 13 Jun 11:30 BST\n' +
+      '  Qualifying Sat 13 Jun 15:00 BST\n' +
+      '  Grand Prix Sun 14 Jun 14:00 BST\n' +
+      '  All live: Sky Sports F1\n\n' +
+      'Odds decimal format, approx. Gamble responsibly.\nSPOT Sports Briefing'
+    );
+    window.location.href = 'mailto:' + to + '?subject=' + subject + '&body=' + body;
+    showToast();
+  }
+
+  function showToast() {
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+</script>
+</body>
+</html>
