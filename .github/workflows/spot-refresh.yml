@@ -1,0 +1,172 @@
+name: Weekly SPOT refresh
+
+on:
+  schedule:
+    - cron: '30 18 * * 0'   # Sundays 18:30 UTC (19:30 BST / 18:30 GMT)
+  workflow_dispatch:         # allows manual runs from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Generate refreshed SPOT data
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          cat > /tmp/refresh.mjs <<'REFRESH_EOF'
+          import https from 'node:https';
+          import fs from 'node:fs';
+
+          const API_KEY = process.env.ANTHROPIC_API_KEY;
+          if (!API_KEY) { console.error('Missing ANTHROPIC_API_KEY secret'); process.exit(1); }
+
+          // ---- compute the 4-week window ----
+          const now = new Date();
+          const today = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+          const dow = today.getUTCDay(); // 0 = Sunday
+          // Sunday run -> window starts tomorrow; manual mid-week run -> this week's Monday
+          const offset = dow === 0 ? 1 : 1 - dow;
+          const monday = new Date(today); monday.setUTCDate(today.getUTCDate() + offset);
+
+          const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+          const monthLong = d => d.toLocaleDateString('en-GB', {month:'long', timeZone:'UTC'});
+          const monthShort = d => d.toLocaleDateString('en-GB', {month:'short', timeZone:'UTC'});
+
+          const weeks = [];
+          for (let i = 0; i < 4; i++) {
+            const ws = new Date(monday); ws.setUTCDate(monday.getUTCDate() + i*7);
+            const we = new Date(ws); we.setUTCDate(ws.getUTCDate() + 6);
+            const label = ws.getUTCMonth() === we.getUTCMonth()
+              ? 'Mon ' + ws.getUTCDate() + ' – Sun ' + we.getUTCDate() + ' ' + monthLong(we)
+              : 'Mon ' + ws.getUTCDate() + ' ' + monthLong(ws) + ' – Sun ' + we.getUTCDate() + ' ' + monthLong(we);
+            weeks.push({ws, we, label});
+          }
+          const iso = d => d.toISOString().slice(0,10);
+          const updatedLabel = DAYS[today.getUTCDay()] + ' ' + today.getUTCDate() + ' ' + monthLong(today) + ' ' + today.getUTCFullYear();
+          const shortWindow = 'Mon ' + monday.getUTCDate() + ' ' + monthShort(monday) + ' – Sun ' +
+            weeks[3].we.getUTCDate() + ' ' + monthShort(weeks[3].we) + ' ' + weeks[3].we.getUTCFullYear();
+
+          // ---- build the prompt ----
+          const prompt = 'Today is ' + updatedLabel + '. You maintain SPOT, a single-page UK "sport on TV" guide covering exactly four sports: football (men\'s top tier only: World Cup headline fixtures, Premier League headline fixtures, Champions League, major finals, big internationals), rugby union, boxing, and MMA (UFC).\n\n' +
+          'Using web search, research the main UK-televised events in those four sports for this 4-week window:\n' +
+          weeks.map((w,i) => 'Week ' + (i+1) + ': ' + w.label + ' (' + iso(w.ws) + ' to ' + iso(w.we) + ')').join('\n') + '\n\n' +
+          'For each event find: UK start time, venue, UK TV channel (BBC/ITV/Sky Sports/TNT Sports/DAZN etc.), a one-or-two-sentence TLDR on its significance, and decimal odds from UK bookmakers. Use handicap lines where they make more sense than outright (e.g. rugby). NEVER invent odds - where none are published use odds:null with an oddsNote such as "Odds TBC". Overnight US events must be listed under the UK calendar date they actually air, with the UK time. Where there is a defensible value angle, add a short "value" note (opinion, not advice); omit it otherwise. Aim for 8-12 events per week where the calendar allows; fewer is fine in genuinely quiet weeks (you may add one explanatory placeholder event if a sport goes dark).\n\n' +
+          'Output ONLY a JavaScript object literal wrapped in <spot_data></spot_data> tags - no markdown fences, no commentary. Schema:\n' +
+          '{\n' +
+          '  updated: "' + updatedLabel + '",\n' +
+          '  outright: {label:"<most relevant headline outright market>", odds:[{label:"Name", v:"2.88"}]},\n' +
+          '  top3: ["<ids of the three biggest events of Week 1>"],\n' +
+          '  weeks: [\n' +
+          '    {num:"Week 1", range:"' + weeks[0].label + '", events:[\n' +
+          '      {id:"unique-id", sport:"football", dt:"YYYY-MM-DD", day:"Monday 6 July", time:"20:00", big:true,\n' +
+          '       title:"Team A v Team B", comp:"Competition - Round - Venue", tv:"ITV1",\n' +
+          '       tldr:"Why it matters.", odds:[{label:"A",v:"1.57"},{label:"Draw",v:"3.85"},{label:"B",v:"6.00"}], value:"Optional short opinion."}\n' +
+          '    ]},\n' +
+          '    {num:"Week 2", range:"' + weeks[1].label + '", events:[]},\n' +
+          '    {num:"Week 3", range:"' + weeks[2].label + '", events:[]},\n' +
+          '    {num:"Week 4", range:"' + weeks[3].label + '", events:[]}\n' +
+          '  ]\n' +
+          '}\n' +
+          'Rules: sport must be one of football|rugby|boxing|mma. odds is an array or null; when null include oddsNote. big:true only for standout events (2-4 per week). time is "HH:MM" UK time or "TBC". Fill ALL four weeks with real researched events. Use the range strings exactly as given above. Use double quotes for all strings, no trailing commas, and never include the character sequence </script> anywhere.';
+
+          // ---- call the Anthropic API ----
+          function callApi(attempt) {
+            return new Promise((resolve, reject) => {
+              const body = JSON.stringify({
+                model: 'claude-sonnet-5',
+                max_tokens: 16000,
+                messages: [{role: 'user', content: prompt}],
+                tools: [{type: 'web_search_20250305', name: 'web_search', max_uses: 20}]
+              });
+              const req = https.request({
+                hostname: 'api.anthropic.com', path: '/v1/messages', method: 'POST',
+                headers: {
+                  'x-api-key': API_KEY,
+                  'anthropic-version': '2023-06-01',
+                  'content-type': 'application/json',
+                  'content-length': Buffer.byteLength(body)
+                }
+              }, res => {
+                let data = '';
+                res.on('data', c => data += c);
+                res.on('end', () => {
+                  if (res.statusCode !== 200) return reject(new Error('API ' + res.statusCode + ': ' + data.slice(0, 2000)));
+                  resolve(JSON.parse(data));
+                });
+              });
+              req.on('error', reject);
+              req.write(body); req.end();
+            }).catch(err => {
+              if (attempt < 2) { console.error('Attempt ' + attempt + ' failed: ' + err.message + ' - retrying'); return callApi(attempt + 1); }
+              throw err;
+            });
+          }
+
+          const resp = await callApi(1);
+          if (resp.stop_reason === 'max_tokens') { console.error('Response truncated (max_tokens)'); process.exit(1); }
+          const text = (resp.content || []).filter(b => b.type === 'text').map(b => b.text).join('\n');
+          const m = text.match(/<spot_data>([\s\S]*?)<\/spot_data>/);
+          if (!m) { console.error('No <spot_data> block in response:\n' + text.slice(0, 3000)); process.exit(1); }
+          let objText = m[1].trim().replace(/;\s*$/, '');
+          if (/<\/script/i.test(objText)) { console.error('Data contains </script>'); process.exit(1); }
+
+          // ---- validate ----
+          const obj = new Function('return (' + objText + ')')();
+          const fail = msg => { console.error('Validation failed: ' + msg); process.exit(1); };
+          if (!obj.updated || !obj.outright || !Array.isArray(obj.weeks) || obj.weeks.length !== 4) fail('bad top-level shape');
+          const validSports = new Set(['football','rugby','boxing','mma']);
+          const ids = [];
+          obj.weeks.forEach((w, i) => {
+            if (!Array.isArray(w.events) || w.events.length < 2) fail('week ' + (i+1) + ' has fewer than 2 events');
+            w.events.forEach(e => {
+              if (!e.id || !validSports.has(e.sport) || !e.dt || !e.day || !e.time || !e.title || !e.comp || !e.tv || !e.tldr) fail('bad event in week ' + (i+1) + ': ' + JSON.stringify(e).slice(0,120));
+              ids.push(e.id);
+            });
+          });
+          if (new Set(ids).size !== ids.length) fail('duplicate event ids');
+          if (!Array.isArray(obj.top3) || obj.top3.length !== 3 || !obj.top3.every(t => ids.includes(t))) fail('top3 ids do not resolve');
+
+          // ---- splice into index.html ----
+          const html = fs.readFileSync('index.html', 'utf8');
+          const sMark = '/* ============================================================\n   SPOT DATA';
+          const rMark = '/* ============================================================\n   RENDER';
+          const s = html.indexOf(sMark), r = html.indexOf(rMark);
+          if (s < 0 || r < 0 || r <= s) { console.error('Markers not found in index.html'); process.exit(1); }
+          const block = '/* ============================================================\n' +
+            '   SPOT DATA — regenerated weekly by GitHub Actions\n' +
+            '   Window: ' + shortWindow + '\n' +
+            '   ============================================================ */\n' +
+            'const SPOT_DATA = ' + objText + ';\n\n';
+          const out = html.slice(0, s) + block + html.slice(r);
+
+          // final syntax check of the whole script block
+          const sm = out.match(/<script>([\s\S]*?)<\/script>/);
+          if (!sm) { console.error('Script block lost'); process.exit(1); }
+          try { new Function(sm[1]); } catch (e) { console.error('Final syntax check failed: ' + e.message); process.exit(1); }
+
+          fs.writeFileSync('index.html', out);
+          console.log('OK - updated: ' + obj.updated);
+          obj.weeks.forEach(w => console.log(w.num + ' (' + w.range + '): ' + w.events.length + ' events'));
+          REFRESH_EOF
+          node /tmp/refresh.mjs
+
+      - name: Commit and push
+        run: |
+          if git diff --quiet index.html; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git config user.name "spot-refresh-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Weekly SPOT refresh (auto): $(date -u +'%d %b %Y')"
+          git push
