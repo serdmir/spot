@@ -230,149 +230,65 @@
 <script>
 /* ============================================================
    SPOT DATA — regenerated every Sunday night
-   Window: Mon 6 Jul – Sun 2 Aug 2026
+   Window: Mon 13 Jul – Sun 9 Aug 2026
    ============================================================ */
 const SPOT_DATA = {
-  updated: "Tuesday 7 July 2026",
+  updated: "Monday 13 July 2026",
   outright: {
     label: "World Cup outright",
     odds: [
-      {label:"France", v:"2.88"},
-      {label:"Argentina", v:"5.50"},
-      {label:"Spain", v:"7.00"},
-      {label:"England", v:"10.00"},
-      {label:"Morocco", v:"21.00"}
+      {label:"France", v:"2.40"},
+      {label:"England", v:"4.10"},
+      {label:"Spain", v:"4.30"},
+      {label:"Argentina", v:"5.00"}
     ]
   },
-  top3: ["qf-fra-mar","qf3-eng","ufc329"],
+  top3: ["sf2-eng-arg","final","sf1-fra-esp"],
   weeks: [
   {
     num: "Week 1",
-    range: "Mon 6 – Sun 12 July",
-    events: [
-      {id:"por-esp", sport:"football", dt:"2026-07-06", day:"Monday 6 July", time:"20:00", big:true,
-       title:"Portugal v Spain", comp:"World Cup · Round of 16 · Arlington, Texas",
-       tv:"BBC/ITV (TBC)",
-       tldr:"The tie of the round — an Iberian derby in the last 16, with the tournament's form side Spain against neighbours who have never met them at a World Cup knockout stage. Winner gets Belgium or the USA.",
-       odds:null, oddsNote:"Match odds TBC"},
-
-      {id:"bel-usa", sport:"football", dt:"2026-07-07", day:"Tuesday 7 July", time:"01:00",
-       title:"Belgium v USA", comp:"World Cup · Round of 16 · Seattle (1am, Monday night into Tuesday)",
-       tv:"BBC/ITV (TBC)",
-       tldr:"The hosts' biggest game in a generation and a rematch of the 2014 last-16 classic. Survive this and the USA are two wins from a home semi-final.",
-       odds:null, oddsNote:"Match odds TBC"},
-
-      {id:"egy-arg", sport:"football", dt:"2026-07-07", day:"Tuesday 7 July", time:"17:00",
-       title:"Egypt v Argentina", comp:"World Cup · Round of 16 · Atlanta",
-       tv:"BBC/ITV (TBC)",
-       tldr:"Salah's Egypt against the holders, who scraped past Cape Verde in the last round. On paper the kindest draw Argentina could ask for — on grass they've looked mortal.",
-       odds:null, oddsNote:"Match odds TBC"},
-
-      {id:"qf-fra-mar", sport:"football", dt:"2026-07-09", day:"Thursday 9 July", time:"21:00", big:true,
-       title:"Morocco v France", comp:"World Cup · Quarter-final · Foxborough",
-       tv:"BBC/ITV (TBC)",
-       tldr:"A rematch of the 2022 semi-final. France have been the team of the tournament and the market's runaway favourite; Morocco are the last African side standing and keep beating the seedings.",
-       odds:[{label:"Morocco",v:"6.00"},{label:"Draw",v:"3.85"},{label:"France",v:"1.57"}],
-       value:"France 1.27 to qualify is no price at all. Morocco are built to take games long — the draw at 3.85 in 90 minutes is the sharper angle than either outright."},
-
-      {id:"qf2", sport:"football", dt:"2026-07-10", day:"Friday 10 July", time:"20:00",
-       title:"Spain v Belgium", comp:"World Cup · Quarter-final · Los Angeles",
-       tv:"BBC/ITV",
-       tldr:"Spain ended Portugal's run in the Iberian derby; Belgium knocked out the hosts. The pre-tournament favourites against a rejuvenated Belgium, at a friendly 8pm UK kick-off.",
-       odds:null, oddsNote:"Match odds TBC"},
-
-      {id:"qf3-eng", sport:"football", dt:"2026-07-11", day:"Saturday 11 July", time:"22:00", big:true,
-       title:"Norway v England", comp:"World Cup · Quarter-final · Hard Rock Stadium, Miami",
-       tv:"BBC/ITV",
-       tldr:"England saw off Mexico in the last 16 — and their reward is Haaland, fresh from Norway's stunning elimination of Brazil. A first England World Cup quarter-final since 2022, with the bracket wide open beyond it.",
-       odds:null, oddsNote:"Match odds TBC"},
-
-      {id:"qf4", sport:"football", dt:"2026-07-12", day:"Sunday 12 July", time:"02:00",
-       title:"Argentina v Switzerland", comp:"World Cup · Quarter-final · Kansas City (2am, Saturday night into Sunday)",
-       tv:"BBC/ITV",
-       tldr:"The holders against a Switzerland side that has quietly beaten Algeria and Colombia to get here. The semi-final line-up completes overnight.",
-       odds:null, oddsNote:"Match odds TBC"},
-
-      {id:"aus-fra", sport:"rugby", dt:"2026-07-11", day:"Saturday 11 July", time:"09:40",
-       title:"Australia v France", comp:"Nations Championship Rd 2 · Brisbane",
-       tv:"ITV1/ITVX",
-       tldr:"Breakfast rugby: France's second week down under against a Wallabies side desperate to open their account at home.",
-       odds:null, oddsNote:"Odds TBC"},
-
-      {id:"fij-eng", sport:"rugby", dt:"2026-07-11", day:"Saturday 11 July", time:"15:10", big:true,
-       title:"Fiji v England", comp:"Nations Championship Rd 2 · Hill Dickinson Stadium, Liverpool",
-       tv:"ITV1",
-       tldr:"Fiji's 'home' tie staged at Everton's new stadium — international rugby on Merseyside for the first time, a week after England's opener at Ellis Park. Fiji have beaten England as recently as 2023.",
-       odds:null, oddsNote:"Odds TBC"},
-
-      {id:"sa-sco", sport:"rugby", dt:"2026-07-11", day:"Saturday 11 July", time:"17:40",
-       title:"South Africa v Scotland", comp:"Nations Championship Rd 2 · Loftus Versfeld, Pretoria",
-       tv:"ITV1/ITVX",
-       tldr:"Scotland at altitude against the world champions — arguably the hardest away fixture in the sport.",
-       odds:null, oddsNote:"Handicap line (likely SA -10 or more) TBC"},
-
-      {id:"arg-wal", sport:"rugby", dt:"2026-07-11", day:"Saturday 11 July", time:"21:10",
-       title:"Argentina v Wales", comp:"Nations Championship Rd 2 · Argentina",
-       tv:"ITV/ITVX · S4C",
-       tldr:"Wales's second southern test of the new tournament — the Pumas at home under lights is a serious step up from the Fiji opener.",
-       odds:null, oddsNote:"Odds TBC"},
-
-      {id:"gassiev", sport:"boxing", dt:"2026-07-11", day:"Saturday 11 July", time:"20:00",
-       title:"Murat Gassiev v TBC (Yoka out)", comp:"WBA heavyweight title · Moscow",
-       tv:"YouTube (free stream)",
-       tldr:"Yoka withdrew injured this week; Joe Joyce — already on the card against Artem Suslenkov — is the frontrunner to step up for the title shot. Confirmation due in fight week.",
-       odds:null, oddsNote:"Await confirmed opponent"},
-
-      {id:"ufc329", sport:"mma", dt:"2026-07-12", day:"Sunday 12 July", time:"02:00", big:true,
-       title:"UFC 329: McGregor v Holloway 2", comp:"International Fight Week · T-Mobile Arena, Las Vegas",
-       tv:"TNT Sports Box Office (prelims TNT Sports 1/HBO Max)",
-       tldr:"McGregor's first fight since 2021, rematching Holloway 13 years on, with Pimblett in the co-main. Prelims from midnight, main card 2am, main event around 5am UK Sunday. £19.99 PPV.",
-       odds:[{label:"Holloway",v:"1.25"},{label:"McGregor",v:"4.30"}],
-       value:"The line has moved toward McGregor all week (4.75 into 4.30) on sentiment, not footage. Holloway inside the distance remains the more honest ticket than either outright."}
-    ]
-  },
-  {
-    num: "Week 2",
     range: "Mon 13 – Sun 19 July",
     events: [
-      {id:"sf1", sport:"football", dt:"2026-07-15", day:"Wednesday 15 July", time:"01:00", big:true,
-       title:"Semi-final 1", comp:"World Cup · Arlington, Texas (1am, Tuesday night into Wednesday)",
-       tv:"BBC/ITV",
-       tldr:"France's projected semi-final, from the Morocco/France side of the bracket. A 1am UK kick-off — plan the Wednesday accordingly.",
-       odds:null, oddsNote:"Odds once quarter-finals settle"},
+      {id:"sf1-fra-esp", sport:"football", dt:"2026-07-14", day:"Tuesday 14 July", time:"20:00", big:true,
+       title:"France v Spain", comp:"World Cup · Semi-final · Arlington, Texas",
+       tv:"BBC/ITV (TBC)",
+       tldr:"The two best sides in the tournament meet a round early — France saw off Morocco 2-0, Spain edged Belgium. The winner will start the final as favourite, at a UK-friendly 8pm kick-off.",
+       odds:[{label:"France",v:"2.35"},{label:"Draw",v:"3.20"},{label:"Spain",v:"3.20"}],
+       value:"The market can barely split them in 90 minutes. In a knockout semi between two possession sides, the draw at 3.20 is the honest price on the board."},
 
-      {id:"sf2", sport:"football", dt:"2026-07-16", day:"Thursday 16 July", time:"01:00", big:true,
-       title:"Semi-final 2", comp:"World Cup · Atlanta (1am, Wednesday night into Thursday)",
-       tv:"BBC/ITV",
-       tldr:"England's projected semi-final if they come through Miami — most likely against Argentina's side of the bracket, and another 1am start.",
-       odds:null, oddsNote:"Odds once quarter-finals settle"},
+      {id:"sf2-eng-arg", sport:"football", dt:"2026-07-15", day:"Wednesday 15 July", time:"20:00", big:true,
+       title:"England v Argentina", comp:"World Cup · Semi-final · Atlanta",
+       tv:"BBC/ITV (TBC)",
+       tldr:"Bellingham's double sank Norway; the holders needed extra time against ten-man Switzerland. England's first World Cup semi since 2018, against the oldest grudge fixture of them all — 8pm UK, national holiday atmosphere guaranteed.",
+       odds:[{label:"England",v:"2.60"},{label:"Draw",v:"2.90"},{label:"Argentina",v:"3.10"}],
+       value:"England shade favouritism on form, but Argentina at 3.10 in 90 minutes is the biggest price the champions have been all tournament."},
 
-      {id:"bronze", sport:"football", dt:"2026-07-18", day:"Saturday 18 July", time:"TBC",
-       title:"Third-place play-off", comp:"World Cup · Miami",
-       tv:"BBC/ITV",
+      {id:"bronze", sport:"football", dt:"2026-07-18", day:"Saturday 18 July", time:"22:00",
+       title:"Third-place play-off", comp:"World Cup · Miami (10pm UK kick-off)",
+       tv:"BBC/ITV (TBC)",
        tldr:"The consolation fixture nobody wants to play and everybody ends up enjoying — usually the tournament's most open game.",
        odds:null, oddsNote:"Odds after the semis"},
 
       {id:"final", sport:"football", dt:"2026-07-19", day:"Sunday 19 July", time:"20:00", big:true,
        title:"World Cup Final", comp:"World Cup · MetLife Stadium, New Jersey",
        tv:"BBC One & ITV1",
-       tldr:"The biggest TV event of the year at a UK-perfect 8pm kick-off. France start the knockouts as the team to beat; England's side of the bracket is their kindest since 1966 — if they're still standing.",
+       tldr:"The biggest TV event of the year at a UK-perfect 8pm kick-off. France remain the market's pick at 2.40 outright; England at 4.10 would be contesting a first World Cup final since 1966.",
        odds:null, oddsNote:"Match odds once finalists known"},
 
-      {id:"nz-ire", sport:"rugby", dt:"2026-07-18", day:"Saturday 18 July", time:"09:10",
-       title:"New Zealand v Ireland", comp:"Nations Championship Rd 3 · New Zealand",
+      {id:"nz-ire", sport:"rugby", dt:"2026-07-18", day:"Saturday 18 July", time:"09:10", big:true,
+       title:"New Zealand v Ireland", comp:"Nations Championship Rd 3 · Eden Park, Auckland",
        tv:"ITV1/ITVX",
-       tldr:"The fixture that has produced the best test matches of the past decade — Ireland's last visit brought a series win in 2022.",
+       tldr:"The fixture that has produced the best test matches of the past decade — and Ireland have never won at Eden Park, where the All Blacks are unbeaten since 1994. Breakfast rugby at its best.",
        odds:null, oddsNote:"Odds TBC"},
 
       {id:"fij-sco", sport:"rugby", dt:"2026-07-18", day:"Saturday 18 July", time:"15:10",
        title:"Fiji v Scotland", comp:"Nations Championship Rd 3 · Murrayfield, Edinburgh",
        tv:"ITV/ITVX · STV",
-       tldr:"Fiji's third GB 'home' tie lands at Murrayfield — so the away team gets the home crowd. Scotland after back-to-back weeks in South Africa and Argentina.",
+       tldr:"Fiji's GB 'home' tie lands at Murrayfield — so the away team gets the home crowd. Scotland after back-to-back weeks in South Africa and Argentina.",
        odds:null, oddsNote:"Odds TBC"},
 
       {id:"sa-wal", sport:"rugby", dt:"2026-07-18", day:"Saturday 18 July", time:"17:40",
-       title:"South Africa v Wales", comp:"Nations Championship Rd 3 · South Africa",
+       title:"South Africa v Wales", comp:"Nations Championship Rd 3 · Kings Park, Durban",
        tv:"ITV/ITVX · S4C",
        tldr:"Wales close the southern swing against the world champions — survival on the scoreboard is the realistic aim.",
        odds:null, oddsNote:"Handicap line TBC"},
@@ -380,20 +296,21 @@ const SPOT_DATA = {
       {id:"arg-eng", sport:"rugby", dt:"2026-07-18", day:"Saturday 18 July", time:"21:10", big:true,
        title:"Argentina v England", comp:"Nations Championship Rd 3 · Santiago del Estero",
        tv:"ITV1",
-       tldr:"England's tour finale, under lights in Argentina. After Ellis Park and Fiji, this decides whether the southern swing reads as progress or a reality check.",
+       tldr:"England's tour finale, under lights in Argentina. After Ellis Park and the Fiji win, this decides whether the southern swing reads as progress or a reality check.",
        odds:null, oddsNote:"Odds TBC"},
 
       {id:"eubank-papot", sport:"boxing", dt:"2026-07-18", day:"Saturday 18 July", time:"22:00",
        title:"Harlem Eubank v David Papot", comp:"Welterweight · Copper Box Arena, London",
        tv:"DAZN",
-       tldr:"The unbeaten Eubank cousin headlines in London — a proper step-up test against a slick, awkward Frenchman.",
-       odds:null, oddsNote:"Odds TBC"},
+       tldr:"The unbeaten Eubank cousin headlines in London against a slick, awkward Frenchman — and the bookmakers make the visitor the favourite.",
+       odds:[{label:"Papot",v:"1.75"},{label:"Eubank",v:"2.30"}],
+       value:"The Eubank name carries no weight with the layers — Papot favouritism in Eubank's home town tells you how live this is."},
 
       {id:"ufc-ddp", sport:"mma", dt:"2026-07-19", day:"Sunday 19 July", time:"01:00",
        title:"UFC Fight Night: du Plessis v Usman", comp:"Paycom Center, Oklahoma City",
-       tv:"TNT Sports/HBO Max",
-       tldr:"Former middleweight champion du Plessis against former welterweight king Usman, with a title shot at 185 on the line. Main card from 1am UK, opposite the World Cup final weekend.",
-       odds:null, oddsNote:"Odds TBC"},
+       tv:"TNT Sports",
+       tldr:"Former middleweight champion du Plessis against former welterweight king Usman, with a title shot at 185 on the line. Main card from 1am UK, opposite World Cup final weekend.",
+       odds:[{label:"du Plessis",v:"1.29"},{label:"Usman",v:"3.70"}]},
 
       {id:"pacheco", sport:"boxing", dt:"2026-07-19", day:"Sunday 19 July", time:"04:00",
        title:"Diego Pacheco v Immanuwel Aleem", comp:"Super-middleweight · Carson, California",
@@ -403,74 +320,117 @@ const SPOT_DATA = {
     ]
   },
   {
-    num: "Week 3",
+    num: "Week 2",
     range: "Mon 20 – Sun 26 July",
     events: [
       {id:"teraji", sport:"boxing", dt:"2026-07-20", day:"Monday 20 July", time:"TBC",
-       title:"Kenshiro Teraji v Israel González", comp:"WBC super-flyweight title · Tokyo (Masuda v Higa co-feature)",
+       title:"Kenshiro Teraji v Israel González", comp:"Vacant WBO super-flyweight title · Kokugikan, Tokyo (Masuda & Iwata title fights on the bill)",
        tv:"TBC",
-       tldr:"A Japanese Monday card airing in the UK morning — Teraji is one of the best lower-weight fighters of his era.",
+       tldr:"A Japanese Monday tripleheader airing in the UK morning — Teraji, one of the best lower-weight fighters of his era, chases a belt in a third division.",
        odds:null, oddsNote:"Odds TBC"},
 
+      {id:"wc-over", sport:"football", dt:"2026-07-20", day:"w/c Monday 20 July", time:"—",
+       title:"The morning after the World Cup", comp:"Football takes a breath",
+       tv:"—",
+       tldr:"The World Cup ended Sunday night and top-tier football stops with it. Next up: the Community Shield (Arsenal v Man City, 16 August) and the Premier League's return on 21 August.",
+       odds:null, oddsNote:""},
+
       {id:"fury-wach", sport:"boxing", dt:"2026-07-24", day:"Friday 24 July", time:"TBC",
-       title:"Tyson Fury v Mariusz Wach", comp:"Heavyweight · Pattaya, Thailand",
-       tv:"TBC",
-       tldr:"Fury's second comeback fight, staged where he's been training in Thailand — a deliberate tick-over with Fury–Joshua pencilled for late 2026. The time zone means a rare UK-afternoon Fury fight.",
-       odds:null, oddsNote:"Fury will be unbackably short — odds TBC"},
+       title:"Tyson Fury v Mariusz Wach", comp:"Heavyweight · Max Muay Thai Stadium, Pattaya, Thailand",
+       tv:"Netflix (Fury says no live broadcast — airing via his show; details TBC)",
+       tldr:"Fury's comeback tick-over against a 46-year-old beaten in seven of his last ten, staged where he trains in Thailand — a rare UK-afternoon Fury fight, with Fury–Joshua pencilled for late 2026.",
+       odds:[{label:"Fury",v:"1.01"},{label:"Draw",v:"26.00"},{label:"Wach",v:"17.00"}],
+       value:"Unbackable and unwatchable in equal measure — no bet."},
+
+      {id:"ufc-anka", sport:"mma", dt:"2026-07-25", day:"Saturday 25 July", time:"20:00",
+       title:"UFC Fight Night: Ankalaev v Rountree", comp:"Etihad Arena, Abu Dhabi (main card 8pm UK)",
+       tv:"TNT Sports 1",
+       tldr:"Former light-heavyweight champion Ankalaev rebuilds against Rountree's one-punch power, with Umar Nurmagomedov in the co-main — and for once the whole card runs at UK-evening hours.",
+       odds:[{label:"Ankalaev",v:"1.33"},{label:"Rountree",v:"3.50"}]},
 
       {id:"aj-prenga", sport:"boxing", dt:"2026-07-25", day:"Saturday 25 July", time:"23:00", big:true,
-       title:"Anthony Joshua v Kristian Prenga", comp:"Heavyweight · Saudi Arabia",
+       title:"Anthony Joshua v Kristian Prenga", comp:"Heavyweight · Riyadh, Saudi Arabia",
        tv:"DAZN PPV",
-       tldr:"AJ's final tune-up before Fury, a day after Fury's own. The market gives Prenga a 6% chance — this is a public sparring session with a main event around 11pm UK.",
+       tldr:"AJ's final tune-up before Fury, a day after Fury's own. The market gives Prenga a 6% chance — a public sparring session with a main event around 11pm UK.",
        odds:[{label:"Joshua",v:"1.03"},{label:"Prenga",v:"15.00"}],
        value:"No sensible single here. If forced, early-rounds groups — the market prices a Joshua KO inside 4 as near-even money."},
 
-      {id:"ufc-anka", sport:"mma", dt:"2026-07-26", day:"Sunday 26 July", time:"02:00",
-       title:"UFC Fight Night: Ankalaev v Rountree", comp:"UFC · venue TBC",
-       tv:"TNT Sports/HBO Max",
-       tldr:"Former light-heavyweight champion Ankalaev rebuilds against Rountree's one-punch power. Main card overnight Saturday into Sunday.",
-       odds:null, oddsNote:"Odds TBC"},
+      {id:"spence-tszyu", sport:"boxing", dt:"2026-07-26", day:"Sunday 26 July", time:"02:00", big:true,
+       title:"Errol Spence Jr v Tim Tszyu", comp:"Super-welterweight · Afterpay Arena, Sydney (coverage 2am, ring walks 4–5am UK)",
+       tv:"DAZN PPV / Prime Video",
+       tldr:"Spence's biggest fight since the Crawford defeat, in Tszyu's backyard — the best pure boxing match of the month, overnight Saturday into Sunday.",
+       odds:[{label:"Spence",v:"1.67"},{label:"Tszyu",v:"2.25"}],
+       value:"Spence has fought once in three years. 2.25 on a live, active home fighter in Tszyu remains the right side of the market."},
 
       {id:"berlanga", sport:"boxing", dt:"2026-07-26", day:"Sunday 26 July", time:"03:00",
        title:"Edgar Berlanga v Steven Butler", comp:"Super-middleweight · The Theater at MSG, New York",
        tv:"Sky Sports Main Event",
-       tldr:"Berlanga back at MSG chasing a knockout and another big-name fight — on Sky in the early hours of Sunday.",
-       odds:null, oddsNote:"Odds TBC"},
-
-      {id:"spence-tszyu", sport:"boxing", dt:"2026-07-26", day:"Sunday 26 July", time:"05:00", big:true,
-       title:"Errol Spence Jr v Tim Tszyu", comp:"Super-welterweight · Sydney",
-       tv:"Prime Video PPV (UK TBC)",
-       tldr:"Spence's biggest fight since the Crawford defeat, in Tszyu's backyard. Ring walks around 5am UK Sunday — the best pure boxing match of the month.",
-       odds:[{label:"Spence",v:"1.83"},{label:"Draw",v:"17.00"},{label:"Tszyu",v:"2.40"}],
-       value:"Spence has fought once in three years. 2.40 on a live, active home fighter in Tszyu is the right side of the market if you must have one."}
+       tldr:"Berlanga back at MSG chasing a knockout and another big-name fight — on Sky in the early hours of Sunday, before the Sydney main event.",
+       odds:null, oddsNote:"Odds TBC"}
     ]
   },
   {
-    num: "Week 4",
+    num: "Week 3",
     range: "Mon 27 July – Sun 2 August",
     events: [
-      {id:"ufc-belgrade", sport:"mma", dt:"2026-08-01", day:"Saturday 1 August", time:"18:00",
-       title:"UFC Fight Night: Medić v Rodriguez", comp:"Belgrade Arena, Serbia",
-       tv:"TNT Sports/HBO Max",
-       tldr:"A European card for once — prelims from 6pm UK and an evening main event, no alarm required. Serbia's first UFC event, headlined by home favourite Uroš Medić.",
-       odds:null, oddsNote:"Odds TBC"},
-
-      {id:"roach-zepeda", sport:"boxing", dt:"2026-08-02", day:"Sunday 2 August", time:"04:00", big:true,
-       title:"Lamont Roach v William Zepeda", comp:"Vacant WBC lightweight title · Las Vegas",
-       tv:"DAZN",
-       tldr:"A legitimate 50-50 for the vacant WBC lightweight belt — Roach's craft against Zepeda's relentless volume. The best pure boxing card of the window's final week, overnight Saturday into Sunday.",
+      {id:"ufc-belgrade", sport:"mma", dt:"2026-08-01", day:"Saturday 1 August", time:"20:00",
+       title:"UFC Fight Night: Medić v Rodriguez", comp:"Belgrade Arena, Serbia (prelims 6pm, main card 8pm UK)",
+       tv:"TNT Sports",
+       tldr:"Serbia's first-ever UFC event, headlined by home favourite Uroš Medić with former champion Jan Błachowicz against Bogdan Guskov underneath — a full card at sofa-friendly UK hours.",
        odds:null, oddsNote:"Odds TBC"},
 
       {id:"muratalla", sport:"boxing", dt:"2026-08-02", day:"Sunday 2 August", time:"03:00",
        title:"Raymond Muratalla v Robson Conceição", comp:"IBF lightweight title · Las Vegas (Roach–Zepeda undercard)",
        tv:"DAZN",
-       tldr:"The IBF lightweight champion defends on the same Vegas bill — two lightweight world title fights in one night sets up unification talk for the autumn.",
+       tldr:"The IBF lightweight champion defends on the same Vegas bill as Roach–Zepeda — two lightweight world title fights in one night sets up unification talk for the autumn.",
        odds:null, oddsNote:"Odds TBC"},
 
-      {id:"quiet-week", sport:"football", dt:"2026-07-27", day:"w/c Monday 27 July", time:"—",
-       title:"The post-World Cup lull", comp:"Football takes a breath",
+      {id:"roach-zepeda", sport:"boxing", dt:"2026-08-02", day:"Sunday 2 August", time:"04:00", big:true,
+       title:"Lamont Roach v William Zepeda", comp:"Vacant WBC lightweight title · The Theater at Virgin Hotels, Las Vegas",
+       tv:"DAZN",
+       tldr:"A legitimate near-50-50 for the vacant WBC lightweight belt — Roach's craft against Zepeda's relentless volume. The best pure boxing card of the window's second half, overnight Saturday into Sunday.",
+       odds:[{label:"Roach",v:"1.67"},{label:"Zepeda",v:"2.20"}],
+       value:"Zepeda's output travels anywhere; 2.20 about the highest-volume fighter in the division is the value side against Roach's counter-punching."},
+
+      {id:"quiet-3", sport:"football", dt:"2026-07-27", day:"w/c Monday 27 July", time:"—",
+       title:"Pre-season only", comp:"Football's quiet fortnight continues",
        tv:"—",
-       tldr:"No top-tier football this week: the World Cup is done and the Premier League doesn't return until 21 August (Community Shield, Arsenal v Man City, is 16 August in Cardiff). Normal service resumes soon.",
+       tldr:"Friendlies and tours only this week. Rugby's Nations Championship is also on hiatus until the autumn rounds — combat sports carry the schedule.",
+       odds:null, oddsNote:""}
+    ]
+  },
+  {
+    num: "Week 4",
+    range: "Mon 3 – Sun 9 August",
+    events: [
+      {id:"simpson-williamson", sport:"boxing", dt:"2026-08-08", day:"Saturday 8 August", time:"22:00", big:true,
+       title:"Troy Williamson v Callum Simpson 2", comp:"British, Commonwealth & European super-middleweight titles · First Direct Bank Arena, Leeds",
+       tv:"DAZN",
+       tldr:"The rematch of December's upset, when Williamson stopped the previously unbeaten Simpson and took all three belts. Domestic boxing's grudge fight of the summer, in Simpson's Yorkshire backyard.",
+       odds:null, oddsNote:"Odds TBC"},
+
+      {id:"mckenna-oliha", sport:"boxing", dt:"2026-08-08", day:"Saturday 8 August", time:"22:00",
+       title:"Aaron McKenna v Etinosa Oliha", comp:"Middleweight · 3Arena, Dublin",
+       tv:"Sky Sports Main Event",
+       tldr:"Ireland's McKenna headlines Dublin against the unbeaten Italian — a genuine step-up on the same night as the Leeds card.",
+       odds:null, oddsNote:"Odds TBC"},
+
+      {id:"johnson-thorslund", sport:"boxing", dt:"2026-08-09", day:"Sunday 9 August", time:"02:00",
+       title:"Cherneka Johnson v Dina Thorslund", comp:"Undisputed women's bantamweight title · Caribe Royale, Orlando",
+       tv:"Sky Sports",
+       tldr:"Every bantamweight belt on the line — Johnson's undisputed crown against the unbeaten Dane, on Jake Paul's MVP promotion. Overnight Saturday into Sunday on Sky.",
+       odds:null, oddsNote:"Odds TBC"},
+
+      {id:"ufc-gamrot", sport:"mma", dt:"2026-08-09", day:"Sunday 9 August", time:"01:00",
+       title:"UFC Fight Night: Gamrot v Salkilld", comp:"UFC Apex, Las Vegas (main card overnight Sat into Sun)",
+       tv:"TNT Sports",
+       tldr:"A low-key Apex card headlined by lightweight gatekeeper Gamrot against surging Australian Salkilld — filler before UFC 330 (Makhachev v Machado Garry) in Philadelphia the following Saturday.",
+       odds:null, oddsNote:"Odds TBC"},
+
+      {id:"quiet-4", sport:"football", dt:"2026-08-03", day:"w/c Monday 3 August", time:"—",
+       title:"Football's last quiet week", comp:"The new season is a week away",
+       tv:"—",
+       tldr:"Pre-season friendlies only. The Community Shield (Arsenal v Man City, Sunday 16 August) and the Premier League's opening weekend (from 21 August) land just after this window closes.",
        odds:null, oddsNote:""}
     ]
   }
