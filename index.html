@@ -233,13 +233,13 @@
    Window: Mon 24 Aug – Sun 20 Sep 2026
    ============================================================ */
 const SPOT_DATA = {
-  updated: "Wednesday 19 August 2026",
+  updated: "Tuesday 25 August 2026",
   outright: {
     label: "Premier League 26/27 outright",
     odds: [
-      {label:"Arsenal", v:"2.25"},
-      {label:"Man City", v:"4.33"},
-      {label:"Liverpool", v:"7.00"}
+      {label:"Arsenal", v:"1.91"},
+      {label:"Man City", v:"5.00"},
+      {label:"Chelsea", v:"7.00"}
     ]
   },
   top3: ["itauma-hrgovic","sa-nz-t2","lask-cel"],
@@ -251,8 +251,8 @@ const SPOT_DATA = {
       {id:"ful-che", sport:"football", dt:"2026-08-24", day:"Monday 24 August", time:"20:00",
        title:"Fulham v Chelsea", comp:"Premier League · Matchweek 2 · Craven Cottage",
        tv:"Sky Sports",
-       tldr:"Monday night west London derby to close matchweek two. Fulham have made a habit of ruining Chelsea's evenings at the Cottage.",
-       odds:null, oddsNote:"Odds TBC"},
+       tldr:"Played: Fulham 2–3 Chelsea. Palmer, Joao Pedro and Morgan Rogers all scored in Xabi Alonso's first match in charge, and Chelsea survived a wobbly finish.",
+       odds:null, oddsNote:"Result: Fulham 2–3 Chelsea"},
 
       {id:"lions-abs", sport:"rugby", dt:"2026-08-25", day:"Tuesday 25 August", time:"18:10",
        title:"Lions v All Blacks", comp:"Rugby's Greatest Rivalry · midweek tour match · Ellis Park, Johannesburg",
@@ -263,13 +263,13 @@ const SPOT_DATA = {
       {id:"lask-cel", sport:"football", dt:"2026-08-25", day:"Tuesday 25 August", time:"20:00", big:true,
        title:"LASK v Celtic", comp:"Champions League play-off · 2nd leg · Raiffeisen Arena, Linz",
        tv:"Amazon Prime Video",
-       tldr:"Roughly £40m and Scotland's only league-phase place settled in Austria. The loser drops into the Europa League league phase rather than out of Europe altogether, which softens the fall without softening the night.",
-       odds:null, oddsNote:"Odds TBC"},
+       tldr:"Celtic bring a 3-0 lead from Glasgow, so the £40m question looks close to answered — but this is the exact scoreline Celtic have contrived to make interesting in Europe before. The loser drops into the Europa League league phase.",
+       odds:null, oddsNote:"Celtic heavy odds-on to qualify after the 3-0 first leg"},
 
       {id:"lyo-fen", sport:"football", dt:"2026-08-26", day:"Wednesday 26 August", time:"20:00",
        title:"Lyon v Fenerbahce", comp:"Champions League play-off · 2nd leg · Groupama Stadium",
        tv:"TNT Sports",
-       tldr:"The pick of Wednesday's play-off second legs, and the one most likely to be settled by an away goal that no longer counts double.",
+       tldr:"1-1 from Istanbul, where Openda scored for Lyon and Greenwood equalised against his old rivals' neighbours. Genuinely alive, which is more than can be said for most of the play-off round.",
        odds:null, oddsNote:"Odds TBC"},
 
       {id:"cry-mci", sport:"football", dt:"2026-08-28", day:"Friday 28 August", time:"20:00",
@@ -279,10 +279,11 @@ const SPOT_DATA = {
        odds:null, oddsNote:"Odds TBC"},
 
       {id:"ufc-shanghai", sport:"mma", dt:"2026-08-29", day:"Saturday 29 August", time:"11:00",
-       title:"UFC Fight Night: Nurmagomedov v Song", comp:"Oriental Sports Center, Shanghai · main card from ~11am UK",
+       title:"UFC Shanghai: Nurmagomedov v Song", comp:"Oriental Sports Center, Shanghai · main card from ~11am UK",
        tv:"TNT Sports",
-       tldr:"A rare Saturday-morning UFC for UK viewers, and a genuinely meaningful bantamweight main event in front of a Shanghai crowd.",
-       odds:null, oddsNote:"Odds TBC"},
+       tldr:"A rare Saturday-morning UFC for UK viewers. Umar Nurmagomedov meets home favourite Song Yadong in a bantamweight main event with a title shot riding on it.",
+       odds:[{label:"Nurmagomedov",v:"1.21"},{label:"Song",v:"4.60"}],
+       oddsNote:"US books; Nurmagomedov around 1/5 across the market"},
 
       {id:"liv-nfo", sport:"football", dt:"2026-08-29", day:"Saturday 29 August", time:"12:30",
        title:"Liverpool v Nottingham Forest", comp:"Premier League · Anfield",
@@ -293,10 +294,9 @@ const SPOT_DATA = {
       {id:"sa-nz-t2", sport:"rugby", dt:"2026-08-29", day:"Saturday 29 August", time:"16:10", big:true,
        title:"South Africa v New Zealand — 2nd Test", comp:"Rugby's Greatest Rivalry · Cape Town Stadium",
        tv:"Sky Sports",
-       tldr:"Test two of four, in Cape Town, sold out months ago. Over a four-Test Freedom Cup series this is the game that decides whether the tour has a story or a procession.",
-       odds:[{label:"Series: South Africa",v:"1.36"},{label:"Drawn series",v:"8.33"},{label:"Series: New Zealand",v:"8.50"}],
-       oddsNote:"Series-winner market priced in early August, before the first Test. Individual Test and handicap lines TBC",
-       value:"Four Tests makes a 2-2 draw far more likely than a three-match series ever did, and 8.33 on the drawn series still looks like a price set for the old format."},
+       tldr:"Suddenly a must-win. The All Blacks scored five tries in a 33-16 first-Test demolition at Ellis Park, and Rassie Erasmus has recalled Pollard at fly-half for Du Toit's 100th Test. Lose here and the series South Africa were 1.36 to win is gone by week two.",
+       odds:null,
+       oddsNote:"UK books repricing after the first Test — series and match lines TBC"},
 
       {id:"tot-new", sport:"football", dt:"2026-08-29", day:"Saturday 29 August", time:"17:30",
        title:"Tottenham v Newcastle", comp:"Premier League · Tottenham Hotspur Stadium",
@@ -305,17 +305,19 @@ const SPOT_DATA = {
        odds:null, oddsNote:"Odds TBC"},
 
       {id:"mayer-cameron", sport:"boxing", dt:"2026-08-29", day:"Saturday 29 August", time:"19:00",
-       title:"Mikaela Mayer v Chantelle Cameron", comp:"bp pulse LIVE Arena, Birmingham · coverage from 7pm",
+       title:"Mikaela Mayer v Chantelle Cameron", comp:"Super-welterweight unification · bp pulse LIVE Arena, Birmingham · from 7pm",
        tv:"Sky Sports",
-       tldr:"A serious women's world-title fight going head-to-head with a heavyweight PPV on the same night — two of the better technicians in the sport, on free-to-subscribers Sky.",
-       odds:null, oddsNote:"Odds TBC"},
+       tldr:"Cameron's WBO belt against Mayer's WBC and WBA in a genuine unification, head-to-head with a heavyweight PPV the same night — two of the better technicians in the sport, on free-to-subscribers Sky.",
+       odds:[{label:"Mayer",v:"1.37"},{label:"Cameron",v:"3.15"}],
+       oddsNote:"Mayer around 2/5 across the market",
+       value:"Home fighter, five-weight pedigree and a style built to frustrate — 3.15 about Cameron in a fight most observers score close is the more interesting side of a market leaning on Mayer's recent activity."},
 
       {id:"itauma-hrgovic", sport:"boxing", dt:"2026-08-29", day:"Saturday 29 August", time:"22:00", big:true,
        title:"Moses Itauma v Filip Hrgovic", comp:"Vacant IBF heavyweight title · O2 Arena, London · ringwalks ~10pm",
        tv:"DAZN PPV",
        tldr:"Itauma fights for a world heavyweight title at 21, against the most experienced live opponent of his career. British heavyweight boxing's next decade probably starts here.",
-       odds:[{label:"Itauma",v:"1.14"},{label:"Draw",v:"21.00"},{label:"Hrgovic",v:"5.50"}],
-       oddsNote:"Prices vary sharply between books — Hrgovic has been available anywhere from 5.00 to 8.00",
+       odds:[{label:"Itauma",v:"1.13"},{label:"Draw",v:"21.00"},{label:"Hrgovic",v:"5.50"}],
+       oddsNote:"bet365; Hrgovic available anywhere from 5.00 to 6.00 across books",
        value:"Hrgovic has drifted while Itauma has shortened, which is usually a sign the market is pricing hype rather than form. Hrgovic went twelve rounds with Dubois; if you think that matters, the distance and round-group markets have moved less than the outright."},
 
       {id:"mun-ips", sport:"football", dt:"2026-08-30", day:"Sunday 30 August", time:"16:30",
@@ -356,7 +358,7 @@ const SPOT_DATA = {
       {id:"sa-nz-t3", sport:"rugby", dt:"2026-09-05", day:"Saturday 5 September", time:"16:10", big:true,
        title:"South Africa v New Zealand — 3rd Test", comp:"Rugby's Greatest Rivalry · FNB Stadium, Soweto",
        tv:"Sky Sports",
-       tldr:"Ninety thousand at FNB Stadium for the third Test of four, with the Freedom Cup live and the neutral-venue finale still to come. The biggest crowd the fixture has ever drawn.",
+       tldr:"Ninety thousand at FNB Stadium, and after New Zealand's win at Ellis Park this is either the Test where the All Blacks retain the Freedom Cup early or the one that levels the series at 1-1 apiece — wait for Cape Town. The biggest crowd the fixture has ever drawn either way.",
        odds:null, oddsNote:"Match and handicap lines TBC"},
 
       {id:"hul-avl", sport:"football", dt:"2026-09-05", day:"Saturday 5 September", time:"17:30",
@@ -368,14 +370,16 @@ const SPOT_DATA = {
       {id:"ufc-paris", sport:"mma", dt:"2026-09-05", day:"Saturday 5 September", time:"20:00",
        title:"UFC Paris: Hooker v Parnasse", comp:"Accor Arena, Paris · main card from 8pm UK",
        tv:"TNT Sports",
-       tldr:"A European card at a European hour, headlined by Dan Hooker against France's Salahdine Parnasse, with Michael Page and Modestas Bukauskas also on the main card.",
-       odds:null, oddsNote:"Odds TBC"},
+       tldr:"A European card at a European hour. France's Salahdine Parnasse — former two-division KSW champion — makes his UFC debut as a heavy favourite over Dan Hooker, which tells you what the matchmakers think of him.",
+       odds:[{label:"Hooker",v:"4.20"},{label:"Parnasse",v:"1.25"}],
+       oddsNote:"Betway; Parnasse around 1/4 across the market",
+       value:"A 1.25 debutant against the most durable lightweight of his generation is a serious statement by the books. If you think octagon experience and a hostile-crowd-proof chin still count for anything, 4.20 on Hooker is the contrarian angle."},
 
       {id:"taylor-pili", sport:"boxing", dt:"2026-09-05", day:"Saturday 5 September", time:"22:00", big:true,
        title:"Katie Taylor v Flora Pili", comp:"Undisputed super-lightweight · Croke Park, Dublin · ringwalks ~10pm",
        tv:"DAZN",
-       tldr:"Taylor's farewell, in Ireland, at Croke Park — the homecoming that never quite happened during her career, arriving right at the end of it. Undisputed status is on the line as well.",
-       odds:null, oddsNote:"Odds TBC"},
+       tldr:"Taylor's farewell, in Ireland, at Croke Park — the homecoming that never quite happened during her career, arriving right at the end of it. The unbeaten Pili is given roughly an eight per cent chance; undisputed status is on the line as well.",
+       odds:null, oddsNote:"Taylor a prohibitive favourite with UK books; firm prices TBC"},
 
       {id:"eve-mun", sport:"football", dt:"2026-09-06", day:"Sunday 6 September", time:"14:00",
        title:"Everton v Man Utd", comp:"Premier League · Hill Dickinson Stadium",
@@ -386,7 +390,7 @@ const SPOT_DATA = {
       {id:"ars-che", sport:"football", dt:"2026-09-06", day:"Sunday 6 September", time:"16:30", big:true,
        title:"Arsenal v Chelsea", comp:"Premier League · Emirates Stadium",
        tv:"Sky Sports",
-       tldr:"The champions against the club that has spent most heavily to catch them, four games in. The first genuine measuring stick of the season for both.",
+       tldr:"The champions against the club that has spent most heavily to catch them, four games in. Alonso's Chelsea won their opener and have moved to third favourites for the title; this is the first genuine measuring stick for both.",
        odds:null, oddsNote:"Odds TBC"}
     ]
   },
@@ -421,21 +425,22 @@ const SPOT_DATA = {
       {id:"sa-nz-t4", sport:"rugby", dt:"2026-09-12", day:"Saturday 12 September", time:"22:00", big:true,
        title:"South Africa v New Zealand — 4th Test", comp:"Rugby's Greatest Rivalry · M&T Bank Stadium, Baltimore",
        tv:"Sky Sports",
-       tldr:"The series finale, in Baltimore, the first time these two have met in the United States. A late UK kick-off for a Test that may well decide the Freedom Cup.",
+       tldr:"The series finale, in Baltimore, the first time these two have met in the United States. With New Zealand up after Ellis Park, the neutral-venue Test the purists sneered at may end up deciding the Freedom Cup.",
        odds:null, oddsNote:"Match and handicap lines TBC"},
 
       {id:"noche-ufc", sport:"mma", dt:"2026-09-12", day:"Saturday 12 September", time:"22:00",
-       title:"Noche UFC: Rodriguez v Silva", comp:"Desert Diamond Arena, Glendale · main card from ~10pm UK",
+       title:"Noche UFC: Silva v Delgado", comp:"Desert Diamond Arena, Glendale · main card from ~10pm UK",
        tv:"TNT Sports",
-       tldr:"The UFC's Mexican Independence weekend card, headlined by Yair Rodriguez against Jean Silva, with Alexa Grasso v Manon Fiorot and Curtis Blaydes in support.",
-       odds:null, oddsNote:"Odds TBC"},
+       tldr:"The UFC's Mexican Independence weekend card, reshuffled: Yair Rodriguez is out injured, so Jean Silva now headlines against short-notice replacement Jose Delgado at featherweight.",
+       odds:[{label:"Silva",v:"1.24"},{label:"Delgado",v:"4.55"}],
+       oddsNote:"US books, priced after the late change of opponent"},
 
       {id:"garcia-benn", sport:"boxing", dt:"2026-09-13", day:"Sunday 13 September", time:"04:00", big:true,
        title:"Ryan Garcia v Conor Benn", comp:"WBC welterweight title · T-Mobile Arena, Las Vegas · ringwalks ~4am UK",
        tv:"DAZN PPV",
-       tldr:"Benn's first world-title shot, against a Garcia who has been more reliable in the ring than out of it. A fight that has been talked about for two years finally has a date.",
+       tldr:"Benn's first world-title shot, against a Garcia who has been more reliable in the ring than out of it. Saturday night in Vegas means the small hours of Sunday in the UK.",
        odds:[{label:"Garcia",v:"1.30"},{label:"Benn",v:"3.75"}],
-       oddsNote:"Garcia has been as short as 1.25 and Benn as big as 4.33 across UK books",
+       oddsNote:"Garcia between 1.23 and 1.30 across books; Benn as big as 4.00",
        value:"Benn has never fought at this level and Garcia has never been beaten by anyone below it — but 3.75 on a live puncher against a fighter with a suspect chin is a wider price than the styles suggest."},
 
       {id:"cov-bha", sport:"football", dt:"2026-09-13", day:"Sunday 13 September", time:"14:00",
@@ -449,7 +454,7 @@ const SPOT_DATA = {
        tv:"Sky Sports",
        tldr:"The first derby of the season, at Old Trafford, five games in. City are favourites away from home, which tells you most of what you need to know about where these two clubs currently sit.",
        odds:[{label:"Man Utd",v:"3.60"},{label:"Draw",v:"3.75"},{label:"Man City",v:"1.91"}],
-       oddsNote:"Paddy Power",
+       oddsNote:"Paddy Power, priced mid-August — will move with early-season form",
        value:"1.91 about an away side in a Manchester derby is short by historical standards — the fixture has produced a draw or a United win in a clear majority of Old Trafford meetings, and 3.75 about the draw is the value end of that."}
     ]
   },
@@ -490,21 +495,21 @@ const SPOT_DATA = {
       {id:"ufc-331", sport:"mma", dt:"2026-09-20", day:"Sunday 20 September", time:"03:00", big:true,
        title:"UFC 331: Van v Pantoja 2", comp:"Flyweight title · Crypto.com Arena, Los Angeles · main card from ~3am UK",
        tv:"TNT Sports",
-       tldr:"Joshua Van's first defence, against the man he took the belt from in 26 seconds when Pantoja's arm gave way at UFC 323. Nobody thinks that settled anything.",
-       odds:[{label:"Van",v:"1.95"},{label:"Pantoja",v:"1.87"}],
-       oddsNote:"Opening lines; books split on who is favourite",
-       value:"A genuine pick-em priced as one, which is rare enough to be worth noting. The interesting number is the distance market — the first fight lasted 26 seconds and told us nothing about how five rounds would go."},
+       tldr:"Joshua Van's second defence, against the man he took the belt from in 26 seconds when Pantoja's arm gave way at UFC 323. Nobody thinks that settled anything.",
+       odds:[{label:"Van",v:"2.00"},{label:"Pantoja",v:"1.83"}],
+       oddsNote:"DraftKings opening lines; books split on who is favourite",
+       value:"The champion opening as the underdog in his own defence is rare enough to be worth noting. The interesting number is the distance market — the first fight lasted 26 seconds and told us nothing about how five rounds would go."},
 
       {id:"mayweather-pacquiao", sport:"boxing", dt:"2026-09-20", day:"Sunday 20 September", time:"04:00", big:true,
        title:"Floyd Mayweather v Manny Pacquiao II", comp:"Sanctioned professional rematch · Sphere, Las Vegas · ringwalks ~4am UK",
        tv:"Netflix",
-       tldr:"Eleven years on from the fight that broke pay-per-view records and satisfied nobody, at a venue built for spectacle rather than sport, and free to every Netflix subscriber. Curiosity, not competition.",
+       tldr:"Eleven years on from the fight that broke pay-per-view records and satisfied nobody, with Mayweather's 50-0 genuinely on the line at a venue built for spectacle rather than sport — and free to every Netflix subscriber. Curiosity, not competition.",
        odds:null, oddsNote:"Odds TBC"},
 
       {id:"bou-liv", sport:"football", dt:"2026-09-20", day:"Sunday 20 September", time:"14:00",
        title:"Bournemouth v Liverpool", comp:"Premier League · Vitality Stadium",
        tv:"Sky Sports",
-       tldr:"Sunday lunchtime on the south coast. Bournemouth have beaten Liverpool at home more recently than most of the league has.",
+       tldr:"Sunday lunchtime on the south coast. Bournemouth have beaten Liverpool at home more recently than most of the league has — and Iraola faces his old club.",
        odds:null, oddsNote:"Odds TBC"},
 
       {id:"ful-mun", sport:"football", dt:"2026-09-20", day:"Sunday 20 September", time:"16:30",
